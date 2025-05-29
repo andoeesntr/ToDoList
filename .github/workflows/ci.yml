@@ -7,23 +7,29 @@ on:
     branches: [main]
 
 jobs:
-  build-and-test:
+  test:
+    name: Run Tests
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 18
 
-      - name: Install dependencies
+      - name: 📦 Install dependencies
         run: npm ci
 
-      - name: Run tests
+      - name: 🧪 Run tests
         run: npm test
 
-      - name: Build application
+      - name: ✅ Lint (optional, if you use eslint)
+        run: npm run lint
+        continue-on-error: true  # Optional: prevent lint errors from failing CI
+
+      # Optional: Build check
+      - name: 🔧 Build project
         run: npm run build
