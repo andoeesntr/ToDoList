@@ -33,3 +33,11 @@ jobs:
       # Optional: Build check
       - name: 🔧 Build project
         run: npm run build
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ decrets.VERCEL_TOKEN }}
+        run: vercel --prod  --yes --token $VERCEL_TOKEN
